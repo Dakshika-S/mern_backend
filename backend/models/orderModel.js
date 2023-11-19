@@ -26,7 +26,7 @@ const orderSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "User", //this will mage relationship or refer User model for this user
+    ref: "user", //this will mage relationship or refer User model for this user
   },
   orderItems: [
     {
@@ -49,7 +49,7 @@ const orderSchema = new mongoose.Schema({
       product: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "product",
+        ref: "Product",
       },
     },
   ],
@@ -76,7 +76,7 @@ const orderSchema = new mongoose.Schema({
   paidAt: {
     type: Date,
   },
-  deliverAt: {
+  deliveredAt: {
     type: Date,
   },
   orderStatus: {

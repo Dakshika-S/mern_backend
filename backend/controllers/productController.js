@@ -27,7 +27,7 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
     product, // key value pair so product: product
   });
 });
-
+//chabge
 //Get single product -/api/v1/product/:id
 exports.getSingleProduct = async (req, res, next) => {
   const product = await Product.findById(req.params.id);

@@ -28,7 +28,7 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
     product, // key value pair so product: product
   });
 });
-
+// addlikes
 //Get single product -/api/v1/product/:id
 exports.getSingleProduct = async (req, res, next) => {
   console.log(req.params.id);

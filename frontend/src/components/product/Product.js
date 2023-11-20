@@ -19,11 +19,7 @@ export default function Product({ product }) {
             <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
           </div>
           <p className="card-text">${product.price}</p>
-          <a
-            href="http://localhost:3000/product/65388e5db67d4d197294d1d6"
-            id="view_btn"
-            className="btn btn-block"
-          >
+          <a href="#" id="view_btn" className="btn btn-block">
             View Details
           </a>
         </div>

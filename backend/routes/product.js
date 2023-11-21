@@ -5,6 +5,9 @@ const {
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  createReview,
+  getReviews,
+  deleteReview,
 } = require("../controllers/productController");
 const router = express.Router(); //creating an object of express.Router
 const {
@@ -13,13 +16,18 @@ const {
 } = require("../middlewares/authenticate");
 //should import isAuthenticatesUser as function not as a module
 
-router.route("/products").get(isAuthenticatesUser, getProducts);
+router.route("/products").get(getProducts);
 
 router
   .route("/product/:id")
   .get(getSingleProduct)
   .put(updateProduct)
   .delete(deleteProduct);
+router
+  .route("/review")
+  .put(isAuthenticatesUser, createReview)
+  .delete(deleteReview);
+router.route("/reviews").get(getReviews);
 
 //Admin routes
 router

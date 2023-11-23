@@ -9,13 +9,15 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
     .filter()
-    .paginate(resPerPage);
+    .paginate(resPerPage, currenPage);
 
   const products = await apiFeatures.query; // const products = await Product.find();
-  // console.log(products, "products");
+  const totalProductsCount = await Product.countDocuments({}); //get the tot count of items from db
+  //({})=>if any query avialable can give or just empty object
   res.status(200).json({
     sucsess: true,
-    count: products.length,
+    count: totalProductsCount, // count: products.length,
+    resPerPage,
     products,
   });
 });

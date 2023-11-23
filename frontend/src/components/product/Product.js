@@ -1,11 +1,17 @@
+import { Link } from "react-router-dom";
+
 export default function Product({ product }) {
   return (
     <div className="col-sm-12 col-md-6 col-lg-3 my-3">
       <div className="card p-3 rounded">
-        <img className="card-img-top mx-auto" src={product.images[0].Image} />
+        <img
+          className="card-img-top mx-auto"
+          alt={product.name}
+          src={product.images[0].Image}
+        />
         <div className="card-body d-flex flex-column">
           <h5 className="card-title">
-            <a href=""> {product.name}</a>
+            <Link to={`/product/${product._id}`}>{product.name}</Link>
           </h5>
           <div className="ratings mt-auto">
             <div className="rating-outer">
@@ -19,9 +25,13 @@ export default function Product({ product }) {
             <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
           </div>
           <p className="card-text">${product.price}</p>
-          <a href="#" id="view_btn" className="btn btn-block">
+          <Link
+            to={`/product/${product._id}`}
+            id="view_btn"
+            className="btn btn-block"
+          >
             View Details
-          </a>
+          </Link>
         </div>
       </div>
     </div>

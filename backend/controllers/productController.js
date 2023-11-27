@@ -6,10 +6,11 @@ const APIFeatures = require("../utils/apiFeatures");
 //get Products-  /api/v1/products
 exports.getProducts = catchAsyncError(async (req, res, next) => {
   const resPerPage = 3;
+  const currentPage = req.query.page || 1;
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
     .filter()
-    .paginate(resPerPage, currenPage);
+    .paginate(resPerPage, currentPage);
 
   const products = await apiFeatures.query; // const products = await Product.find();
   const totalProductsCount = await Product.countDocuments({}); //get the tot count of items from db

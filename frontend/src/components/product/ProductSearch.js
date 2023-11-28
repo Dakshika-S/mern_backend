@@ -8,6 +8,7 @@ import Product from ".././product/Product";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagination from "react-js-pagination";
+import { useParams } from "react-router-dom";
 
 export default function ProductSearch() {
   const dispatch = useDispatch();
@@ -15,7 +16,8 @@ export default function ProductSearch() {
     (state) => state.productsState
   );
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(currentPage);
+  const { keyword } = useParams();
+
   const setCurrentPageNo = (pageNo) => {
     setCurrentPage(pageNo);
   };
@@ -25,8 +27,8 @@ export default function ProductSearch() {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }
-    dispatch(getProducts(currentPage));
-  }, [error, dispatch, currentPage]);
+    dispatch(getProducts(keyword, currentPage));
+  }, [error, dispatch, currentPage, keyword]);
 
   return (
     <Fragment>

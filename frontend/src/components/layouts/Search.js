@@ -10,7 +10,7 @@ export default function Search() {
     navigate(`/search/${keyword}`);
   };
   return (
-    <form>
+    <form onSubmit={searchHandler}>
       <div className="input-group">
         <input
           type="text"

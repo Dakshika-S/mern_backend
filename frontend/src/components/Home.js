@@ -25,7 +25,7 @@ export default function Home() {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }
-    dispatch(getProducts(currentPage));
+    dispatch(getProducts(null, currentPage));
   }, [error, dispatch, currentPage]);
 
   return (

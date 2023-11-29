@@ -6,22 +6,35 @@ const APIFeatures = require("../utils/apiFeatures");
 //get Products-  /api/v1/products
 exports.getProducts = catchAsyncError(async (req, res, next) => {
   const resPerPage = 3;
-  const currentPage = req.query.page || 1;
-  const apiFeatures = new APIFeatures(Product.find(), req.query)
-    .search()
-    .filter()
-    .paginate(resPerPage, currentPage);
+  // const currentPage = req.query.page || 1;
+  // const apiFeatures = new APIFeatures(Product.find(), req.query)
+  //   .search()
+  //   .filter()
+  //   .paginate(resPerPage, currentPage);
 
-  const products = await apiFeatures.query; // const products = await Product.find();
+  let buildQuery = () => {
+    return new APIFeatures(Product.find(), req.query).search().filter();
+  };
+
+  const filteredProductsCount = await buildQuery().query.countDocuments({});
   const totalProductsCount = await Product.countDocuments({}); //get the tot count of items from db
+  let productsCount = totalProductsCount;
+
+  if (filteredProductsCount !== totalProductsCount) {
+    productsCount = filteredProductsCount;
+  }
+
+  const products = await buildQuery().paginate(resPerPage).query;
+  //const products = await apiFeatures.query; // const products = await Product.find();
   //({})=>if any query avialable can give or just empty object
   res.status(200).json({
-    sucsess: true,
-    count: totalProductsCount, // count: products.length,
+    success: true,
+    count: productsCount, // count: products.length,
     resPerPage,
     products,
   });
 });
+
 //create product- /api/v1//product/new
 exports.newProduct = catchAsyncError(async (req, res, next) => {
   req.body.user = req.user.id; //id has retrieved from userSchema.methods.getJwtToken

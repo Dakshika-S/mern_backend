@@ -18,7 +18,6 @@ export const getProducts =
       }
 
       if (price && price.length === 2) {
-        i;
         // && price.length === 2here the logic length is to setupp hpme page not pass the price ifnot the price will be undefined
         link += `&price[gte]=${price[0]}&price[lte]=${price[1]}`;
       }

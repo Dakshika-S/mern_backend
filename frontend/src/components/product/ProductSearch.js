@@ -23,7 +23,7 @@ export default function ProductSearch() {
   const [price, setPrice] = useState([1, 1000]);
   const [priceChanged, setPriceChanged] = useState(price);
   const [category, setCategory] = useState(null);
-  const [rating, setRatinf] = useState(0);
+  const [rating, setRating] = useState(0);
 
   const { keyword } = useParams();
   const categories = [
@@ -105,6 +105,34 @@ export default function ProductSearch() {
                         }}
                       >
                         {category}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <hr className="mt-5" />
+                {/* Ratings Filter*/}
+                <div className="my-5">
+                  <h4 className="mb-5">Ratings</h4>
+                  <ul className="pl-0">
+                    {[5, 4, 3, 2, 1].map((star) => (
+                      <li
+                        style={{
+                          cursor: "pointer",
+                          listStyleType: "none",
+                        }}
+                        key={star}
+                        onClick={() => {
+                          setRating(star);
+                        }}
+                      >
+                        <div className="rating-outer">
+                          <div
+                            className="rating-inner"
+                            style={{
+                              width: `${star * 20}%`,
+                            }}
+                          ></div>
+                        </div>
                       </li>
                     ))}
                   </ul>

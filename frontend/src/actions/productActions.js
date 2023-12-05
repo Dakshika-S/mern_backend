@@ -4,7 +4,11 @@ import {
   productsRequest,
   productsSuccess,
 } from "../slices/productsSlice";
-import { current } from "@reduxjs/toolkit";
+import {
+  productFail,
+  productRequest,
+  productSuccess,
+} from "../slices/productSlice";
 
 export const getProducts =
   (keyword, price, category, rating, currentPage) => async (dispatch) => {
@@ -26,7 +30,7 @@ export const getProducts =
         link += `&category=${category}`;
       }
       if (rating) {
-        link += `$ratings=${rating}`;
+        link += `&ratings=${rating}`;
       }
       const { data } = await axios.get(link);
       dispatch(productsSuccess(data));
@@ -35,3 +39,16 @@ export const getProducts =
       dispatch(productsFail(error.response.data.message));
     }
   };
+
+export const getProduct = (id) => async (dispatch) => {
+  try {
+    console.log(id);
+    dispatch(productRequest()); //productsRequest(payload will be defined here)
+    const { data } = await axios.get(`/api/v1/product/${id}`);
+    console.log(data);
+    dispatch(productSuccess(data));
+  } catch (error) {
+    //handle error
+    dispatch(productFail(error.response.data.message));
+  }
+};

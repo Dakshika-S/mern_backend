@@ -6,7 +6,14 @@ const sendToken = require("../utils/jwt");
 const crypto = require("crypto");
 //Register User - /api/v1/register
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-  const { name, email, password, avatar } = req.body;
+  const { name, email, password } = req.body; // can get avatar from body by destructuring because it snot text
+
+  let avatar; //intiallu undefined
+  if (req.file) {
+    //avatar = `${req.protocol}://${req.hostname}/uploads/user/${req.file.originalname}`;
+    avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`;
+  }
+
   const user = await User.create({
     //to create a new user
     name,

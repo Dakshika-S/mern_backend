@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { register, clearAuthError } from "../../actions/userActions";
-import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 import { toast } from "react-toastify";
 export default function Register() {
   const [userData, setUserData] = useState({
@@ -15,6 +16,7 @@ export default function Register() {
     "/images/default_avatar.png"
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, error, isAuthenticated } = useSelector(
     (state) => state.authState
   );
@@ -44,6 +46,10 @@ export default function Register() {
     dispatch(register(formData));
   };
   useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+      return;
+    }
     if (error) {
       toast(error, {
         position: toast.POSITION.BOTTOM_CENTER,
@@ -54,7 +60,7 @@ export default function Register() {
       });
       return;
     }
-  }, [error, dispatch]);
+  }, [error, dispatch, isAuthenticated]);
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">
@@ -132,7 +138,7 @@ export default function Register() {
             id="register_button"
             type="submit"
             className="btn btn-block py-3"
-            //disabled={loading}
+            disabled={loading}
           >
             REGISTER
           </button>

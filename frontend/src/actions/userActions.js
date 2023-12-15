@@ -6,6 +6,9 @@ import {
   registerFail,
   registerRequest,
   registerSuccess,
+  loadUserFail,
+  loadUserRequest,
+  loadUserSuccess,
 } from "../slices/authSlice";
 import axios from "axios";
 
@@ -35,5 +38,18 @@ export const register = (userData) => async (dispatch) => {
     dispatch(registerSuccess(data));
   } catch (error) {
     dispatch(registerFail(error.response.data.message));
+  }
+};
+
+export const loadUser = async (dispatch) => {
+  /*not going to send any data*/
+
+  try {
+    dispatch(loadUserRequest());
+
+    const { data } = await axios.get(`/api/v1/myprofile`);
+    dispatch(loadUserSuccess(data));
+  } catch (error) {
+    dispatch(loadUserFail(error.response.data.message));
   }
 };

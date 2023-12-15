@@ -1,8 +1,11 @@
 import React from "react";
 import Search from "./Search";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { DropdownButton, Dropdown, Image } from "react-bootstrap";
 
 export default function Header() {
+  const { isAuthenticated, user } = useSelector((state) => state.authState);
   return (
     <nav className="navbar row">
       <div className="col-12 col-md-3">
@@ -18,9 +21,22 @@ export default function Header() {
       </div>
 
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-        <Link to="/login" className="btn" id="login_btn">
-          Login
-        </Link>
+        {isAuthenticated ? (
+          <Dropdown className="d-inline">
+            <Dropdown.Toggle id="dropdown-basic">
+              <figure className="avatar avatar-nav">
+                <Image
+                  width="50px"
+                  src={user.avatar ?? "./images/default_avatar.png"}
+                />
+              </figure>
+            </Dropdown.Toggle>
+          </Dropdown>
+        ) : (
+          <Link to="/login" className="btn" id="login_btn">
+            Login
+          </Link>
+        )}
 
         <span id="cart" className="ml-3">
           Cart

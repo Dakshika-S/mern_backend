@@ -23,14 +23,21 @@ export default function Header() {
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
         {isAuthenticated ? (
           <Dropdown className="d-inline">
-            <Dropdown.Toggle id="dropdown-basic">
+            <Dropdown.Toggle
+              variant="default text-white pr-5"
+              id="dropdown-basic"
+            >
               <figure className="avatar avatar-nav">
                 <Image
                   width="50px"
                   src={user.avatar ?? "./images/default_avatar.png"}
                 />
               </figure>
+              <span>{user.name}</span>
             </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item className="text-danger">Logout</Dropdown.Item>
+            </Dropdown.Menu>
           </Dropdown>
         ) : (
           <Link to="/login" className="btn" id="login_btn">

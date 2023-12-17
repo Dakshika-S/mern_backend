@@ -9,6 +9,8 @@ import {
   loadUserFail,
   loadUserRequest,
   loadUserSuccess,
+  logoutSuccess,
+  logoutFail,
 } from "../slices/authSlice";
 import axios from "axios";
 
@@ -47,9 +49,26 @@ export const loadUser = async (dispatch) => {
   try {
     dispatch(loadUserRequest());
 
-    const { data } = await axios.get(`/api/v1/myprofile`);
+    const { data } = await axios.get(`/api/v1/myprofile`); //will return data that why got data in destructuring method
     dispatch(loadUserSuccess(data));
   } catch (error) {
     dispatch(loadUserFail(error.response.data.message));
+  }
+};
+
+// export const logout = async (dispatch) => {
+//   try {
+//     await axios.get(`/api/v1/logout`); //this api not going to return any data so only a api call
+//     dispatch(logoutSuccess);
+//   } catch (error) {
+//     dispatch(logoutFail);
+//   }
+// };
+export const logout = async (dispatch) => {
+  try {
+    await axios.get(`/api/v1/logout`);
+    dispatch(logoutSuccess());
+  } catch (error) {
+    dispatch(logoutFail);
   }
 };

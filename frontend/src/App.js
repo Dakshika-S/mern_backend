@@ -13,6 +13,8 @@ import { useEffect } from "react";
 import store from "./store";
 import { loadUser } from "./actions/userActions";
 import Profile from "./components/user/Profile"; //const profile = require("./components/user/profile");
+import ProtectedRoute from "./components/route/ProtectedRoute";
+import UpdateProfile from "./components/user/UpdateProfile";
 function App() {
   useEffect(() => {
     store.dispatch(loadUser);
@@ -30,7 +32,22 @@ function App() {
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/myprofile" element={<Profile />} />
+              <Route
+                path="/myprofile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/myprofile/update"
+                element={
+                  <ProtectedRoute>
+                    <UpdateProfile />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </div>
           <Footer />

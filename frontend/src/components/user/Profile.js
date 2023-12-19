@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "../../actions/userActions";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   // const dispatch = useDispatch();
@@ -19,13 +20,13 @@ export default function Profile() {
             alt="Profile pic"
           />
         </figure>
-        <a
-          href="#"
+        <Link
+          to="/myprofile/update"
           id="edit_profile"
           className="btn btn-primary btn-block my-5"
         >
           Edit Profile
-        </a>
+        </Link>
       </div>
 
       <div className="col-12 col-md-5">

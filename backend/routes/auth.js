@@ -39,7 +39,9 @@ router.route("/password/forgot").post(forgotPassword);
 router.route("/password/reset/:token").post(resetPassword);
 router.route("/password/change").put(isAuthenticatesUser, changePassword);
 router.route("/myprofile").get(isAuthenticatesUser, getUserProfile);
-router.route("/update").put(isAuthenticatesUser, updateProfile);
+router
+  .route("/update")
+  .put(isAuthenticatesUser, upload.single("avatar"), updateProfile);
 
 //Admin routes
 router

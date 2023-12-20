@@ -14,6 +14,9 @@ import {
   updateProfileRequest,
   updateProfileSuccess,
   updateProfileFail,
+  updatePasswordSuccess,
+  updatePasswordFail,
+  updatePasswordRequest,
 } from "../slices/authSlice";
 import axios from "axios";
 
@@ -89,5 +92,22 @@ export const updateProfile = (userData) => async (dispatch) => {
     dispatch(updateProfileSuccess(data));
   } catch (error) {
     dispatch(updateProfileFail(error.response.data.message));
+  }
+};
+export const updatePassword = (formData) => async (dispatch) => {
+  try {
+    dispatch(updatePasswordRequest());
+    const config = {
+      // when creating formData object browswer autaomatically sends multipart data inodert chang this into json have to inser this code bcz in backeng we coded to recieve a json data
+      headers: { "Content-type": "application/json" },
+    };
+
+    {
+      /* // const { data } = not going to return anything so no need*/
+    }
+    await axios.put(`/api/v1/password/change`, formData, config);
+    dispatch(updatePasswordSuccess());
+  } catch (error) {
+    dispatch(updatePasswordFail(error.response.data.message));
   }
 };

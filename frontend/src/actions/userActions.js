@@ -17,6 +17,12 @@ import {
   updatePasswordSuccess,
   updatePasswordFail,
   updatePasswordRequest,
+  forgotPasswordFail,
+  forgotPasswordRequest,
+  forgotPasswordSuccess,
+  resetPasswordFail,
+  resetPasswordRequest,
+  resetPasswordSuccess,
 } from "../slices/authSlice";
 import axios from "axios";
 
@@ -102,12 +108,50 @@ export const updatePassword = (formData) => async (dispatch) => {
       headers: { "Content-type": "application/json" },
     };
 
-    {
-      /* // const { data } = not going to return anything so no need*/
-    }
+    /* // const { data } = not going to return anything so no need*/
+
     await axios.put(`/api/v1/password/change`, formData, config);
     dispatch(updatePasswordSuccess());
   } catch (error) {
     dispatch(updatePasswordFail(error.response.data.message));
+  }
+};
+
+export const forgotPassword = (formData) => async (dispatch) => {
+  try {
+    dispatch(forgotPasswordRequest());
+    const config = {
+      // when creating formData object browswer autaomatically sends multipart data inodert chang this into json have to inser this code bcz in backeng we coded to recieve a json data
+      headers: { "Content-type": "application/json" },
+    };
+
+    /* // const { data } = not going to return anything so no need*/
+
+    const { data } = await axios.post(
+      `/api/v1/password/forgot`,
+      formData,
+      config
+    );
+    dispatch(forgotPasswordSuccess(data));
+  } catch (error) {
+    dispatch(forgotPasswordFail(error.response.data.message));
+  }
+};
+
+export const resetPassword = (formData, token) => async (dispatch) => {
+  try {
+    dispatch(resetPasswordRequest());
+    const config = {
+      // when creating formData object browswer autaomatically sends multipart data inodert chang this into json have to inser this code bcz in backeng we coded to recieve a json data
+      headers: { "Content-type": "application/json" },
+    };
+    const { data } = await axios.post(
+      `/api/v1/password/reset/${token}`,
+      formData,
+      config
+    );
+    dispatch(resetPasswordSuccess(data));
+  } catch (error) {
+    dispatch(resetPasswordFail(error.response.data.message));
   }
 };

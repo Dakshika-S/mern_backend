@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 export default function UpdatePassword() {
   const [oldPassword, setOldPassword] = useState("");
-  const [Password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isUpdated, error } = useSelector((state) => state.authState);
 
@@ -16,7 +16,7 @@ export default function UpdatePassword() {
     e.preventDefault();
     const formData = new FormData(); //to send formdata//js cls for handling form data
     formData.append("oldPassword", oldPassword);
-    formData.append("password", Password);
+    formData.append("password", password);
     dispatch(updatePasswordAction(formData));
   };
 
@@ -26,9 +26,10 @@ export default function UpdatePassword() {
         type: "success",
         position: toast.POSITION.BOTTOM_CENTER,
       });
-      return;
+
       setOldPassword("");
       setPassword("");
+      return;
     }
     if (error) {
       toast(error, {
@@ -63,7 +64,7 @@ export default function UpdatePassword() {
               type="password"
               id="new_password_field"
               className="form-control"
-              value={Password}
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>

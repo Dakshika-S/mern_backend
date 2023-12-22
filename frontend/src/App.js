@@ -16,6 +16,8 @@ import Profile from "./components/user/Profile"; //const profile = require("./co
 import ProtectedRoute from "./components/route/ProtectedRoute";
 import UpdateProfile from "./components/user/UpdateProfile";
 import UpdatePassword from "./components/user/UpdatePassword";
+import ForgotPassword from "./components/user/ForgotPassword";
+import ResetPassword from "./components/user/ResetPassword";
 function App() {
   useEffect(() => {
     store.dispatch(loadUser);
@@ -56,6 +58,12 @@ function App() {
                     <UpdatePassword />
                   </ProtectedRoute>
                 }
+              />
+              <Route path="/password/forgot" element={<ForgotPassword />} />
+              {/*this is not a protected route bcz the user isnt logged in */}
+              <Route
+                path="/password/reset/:token"
+                element={<ResetPassword />}
               />
             </Routes>
           </div>

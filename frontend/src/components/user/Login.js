@@ -37,7 +37,7 @@ export default function Login() {
       });
       return; // then wont any below funcs
     }
-  }, [error, isAuthenticated, dispatch]);
+  }, [error, isAuthenticated, dispatch, navigate]);
 
   return (
     <Fragment>

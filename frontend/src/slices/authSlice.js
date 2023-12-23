@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    loading: false,
+    // loading: false, this will not work correclt ex : myprofile loading
+    loading: true, // so makink true  avoid above conflict
     isAuthenticated: false,
   },
   reducers: {
@@ -73,7 +74,7 @@ const authSlice = createSlice({
       return {
         ...state,
         loading: false,
-        // error: action.payload,
+        // error: action.payload, this is unneccessary bcz  when login page is hsoed wiill popup the error to login
       };
     },
     logoutSuccess(state, action) {
@@ -108,6 +109,13 @@ const authSlice = createSlice({
         ...state,
         loading: false,
         error: action.payload,
+      };
+    },
+
+    clearUpdateProfile(state, action) {
+      return {
+        ...state,
+        isUpdated: false,
       };
     },
     updatePasswordRequest(state, action) {
@@ -191,6 +199,7 @@ export const {
   loadUserSuccess,
   logoutFail,
   logoutSuccess,
+  clearUpdateProfile,
   updateProfileFail,
   updateProfileRequest,
   updateProfileSuccess,

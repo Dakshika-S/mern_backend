@@ -1,17 +1,27 @@
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {increaseCartItemQty}
+import {
+  increaseCartItemQty,
+  decreaseCartItemQty,
+} from "../../slices/cartSlice";
 export default function Cart() {
   const { items } = useSelector((state) => state.cartState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const increaseQty = (item)=>{
+  const increaseQty = (item) => {
     const count = item.quantity;
-    item(item.stock ==0 || count >= item.stock) return;
-    dispatch(increaseCartItem)
-  }
+    if (item.stock == 0 || count >= item.stock) return;
+    dispatch(increaseCartItemQty(item.product));
+  };
+
+  const decreaseQty = (item) => {
+    const count = item.quantity;
+    if (item.stock == 1) return;
+    dispatch(decreaseCartItemQty(item.product));
+  };
+
   return (
     <Fragment>
       {items.length == 0 ? (
@@ -48,15 +58,25 @@ export default function Cart() {
 
                       <div className="col-4 col-lg-3 mt-4 mt-lg-0">
                         <div className="stockCounter d-inline">
-                          <span className="btn btn-danger minus">-</span>
+                          <span
+                            className="btn btn-danger minus"
+                            onClick={() => decreaseQty(item)}
+                          >
+                            -
+                          </span>
                           <input
                             type="number"
                             className="form-control count d-inline"
-                            value="1"
+                            value={item.quantity}
                             readOnly
                           />
 
-                          <span className="btn btn-primary plus">+</span>
+                          <span
+                            className="btn btn-primary plus"
+                            onClick={() => increaseQty(item)}
+                          >
+                            +
+                          </span>
                         </div>
                       </div>
 
